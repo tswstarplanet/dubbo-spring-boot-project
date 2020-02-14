@@ -38,11 +38,10 @@
         <java.target.version>1.8</java.target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.1.2.RELEASE</spring-boot.version>
-        <dubbo.version>2.7.0</dubbo.version>
+        <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
+        <dubbo.version>${revision}</dubbo.version>
         <!-- Build args -->
-        <argline>-server -Xms256m -Xmx512m -XX:PermSize=64m -XX:MaxPermSize=128m -Dfile.encoding=UTF-8
-            -Djava.net.preferIPv4Stack=true
+        <argline>-server -Xms256m -Xmx512m -Dfile.encoding=UTF-8 -Djava.net.preferIPv4Stack=true
         </argline>
         <arguments/>
 
@@ -68,7 +67,7 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- Aapche Dubbo  -->
+            <!-- Apache Dubbo  -->
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo-dependencies-bom</artifactId>
@@ -191,15 +190,6 @@
                     <include>LICENSE</include>
                 </includes>
             </resource>
-            <resource>
-                <directory>../../</directory>
-                <targetPath>META-INF/</targetPath>
-                <filtering>false</filtering>
-                <includes>
-                    <include>NOTICE</include>
-                    <include>LICENSE</include>
-                </includes>
-            </resource>
         </resources>
         <plugins>
             <plugin>
@@ -227,11 +217,10 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <compilerArgument>-proc:none</compilerArgument>
                     <fork>true</fork>
                     <source>${java.source.version}</source>
                     <target>${java.target.version}</target>
-                    <encoding>${file.encoding}</encoding>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
 
@@ -439,5 +428,25 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+
+        <profile>
+            <!-- Spring Boot 2.0 -->
+            <id>spring-boot-2.0</id>
+            <properties>
+                <spring-boot.version>2.0.9.RELEASE</spring-boot.version>
+            </properties>
+        </profile>
+
+        <profile>
+            <!-- Spring Boot 2.1 -->
+            <id>spring-boot-2.1</id>
+            <properties>
+                <spring-boot.version>2.1.11.RELEASE</spring-boot.version>
+            </properties>
+        </profile>
+
+    </profiles>
 
 </project>

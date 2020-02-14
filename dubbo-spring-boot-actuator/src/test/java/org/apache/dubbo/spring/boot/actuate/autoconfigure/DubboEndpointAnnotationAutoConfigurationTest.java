@@ -16,8 +16,6 @@
  */
 package org.apache.dubbo.spring.boot.actuate.autoconfigure;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.dubbo.config.annotation.Service;
 import org.apache.dubbo.spring.boot.actuate.endpoint.DubboConfigsMetadataEndpoint;
 import org.apache.dubbo.spring.boot.actuate.endpoint.DubboMetadataEndpoint;
@@ -25,6 +23,9 @@ import org.apache.dubbo.spring.boot.actuate.endpoint.DubboPropertiesMetadataEndp
 import org.apache.dubbo.spring.boot.actuate.endpoint.DubboReferencesMetadataEndpoint;
 import org.apache.dubbo.spring.boot.actuate.endpoint.DubboServicesMetadataEndpoint;
 import org.apache.dubbo.spring.boot.actuate.endpoint.DubboShutdownEndpoint;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

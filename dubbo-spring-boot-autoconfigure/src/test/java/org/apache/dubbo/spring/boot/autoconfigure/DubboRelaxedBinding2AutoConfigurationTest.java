@@ -18,8 +18,8 @@ package org.apache.dubbo.spring.boot.autoconfigure;
 
 import org.apache.dubbo.config.spring.beans.factory.annotation.ReferenceAnnotationBeanPostProcessor;
 import org.apache.dubbo.config.spring.beans.factory.annotation.ServiceAnnotationBeanPostProcessor;
-import org.apache.dubbo.config.spring.context.properties.DubboConfigBinder;
-import org.junit.Assert;
+
+import com.alibaba.spring.context.config.ConfigurationBeanBinder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.ObjectProvider;
@@ -27,12 +27,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertyResolver;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.ClassUtils;
 
+import java.util.Map;
+
 import static org.apache.dubbo.spring.boot.util.DubboUtils.BASE_PACKAGES_PROPERTY_RESOLVER_BEAN_NAME;
 import static org.apache.dubbo.spring.boot.util.DubboUtils.RELAXED_DUBBO_CONFIG_BINDER_BEAN_NAME;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * {@link DubboRelaxedBinding2AutoConfiguration} Test
@@ -42,6 +49,7 @@ import static org.apache.dubbo.spring.boot.util.DubboUtils.RELAXED_DUBBO_CONFIG_
         "dubbo.scan.basePackages = org.apache.dubbo.spring.boot.autoconfigure"
 })
 @EnableAutoConfiguration
+@PropertySource(value = "classpath:/dubbo.properties")
 public class DubboRelaxedBinding2AutoConfigurationTest {
 
     @Autowired
@@ -50,7 +58,7 @@ public class DubboRelaxedBinding2AutoConfigurationTest {
 
     @Autowired
     @Qualifier(RELAXED_DUBBO_CONFIG_BINDER_BEAN_NAME)
-    private DubboConfigBinder dubboConfigBinder;
+    private ConfigurationBeanBinder dubboConfigBinder;
 
     @Autowired
     private ObjectProvider<ServiceAnnotationBeanPostProcessor> serviceAnnotationBeanPostProcessor;
@@ -58,13 +66,33 @@ public class DubboRelaxedBinding2AutoConfigurationTest {
     @Autowired
     private ObjectProvider<ReferenceAnnotationBeanPostProcessor> referenceAnnotationBeanPostProcessor;
 
+    @Autowired
+    private Environment environment;
+
+    @Autowired
+    private PropertyResolver primaryPropertyResolver;
+
+    @Autowired
+    private Map<String, Environment> environments;
+
     @Test
     public void testBeans() {
-        Assert.assertTrue(ClassUtils.isAssignableValue(BinderDubboConfigBinder.class, dubboConfigBinder));
-        Assert.assertNotNull(serviceAnnotationBeanPostProcessor);
-        Assert.assertNotNull(serviceAnnotationBeanPostProcessor.getIfAvailable());
-        Assert.assertNotNull(referenceAnnotationBeanPostProcessor);
-        Assert.assertNotNull(referenceAnnotationBeanPostProcessor.getIfAvailable());
+
+        assertTrue(ClassUtils.isAssignableValue(BinderDubboConfigBinder.class, dubboConfigBinder));
+
+        assertNotNull(serviceAnnotationBeanPostProcessor);
+        assertNotNull(serviceAnnotationBeanPostProcessor.getIfAvailable());
+        assertNotNull(referenceAnnotationBeanPostProcessor);
+        assertNotNull(referenceAnnotationBeanPostProcessor.getIfAvailable());
+
+        assertNotNull(environment);
+        assertNotNull(primaryPropertyResolver);
+        assertNotNull(environments);
+
+        assertEquals(primaryPropertyResolver, environment);
+        assertEquals(2, environments.size());
+
+        assertTrue(environments.containsValue(environment));
     }
 
 }

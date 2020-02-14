@@ -25,6 +25,10 @@ import java.util.SortedMap;
 import static org.apache.dubbo.spring.boot.util.DubboUtils.BASE_PACKAGES_PROPERTY_NAME;
 import static org.apache.dubbo.spring.boot.util.DubboUtils.DEFAULT_MULTIPLE_CONFIG_PROPERTY_VALUE;
 import static org.apache.dubbo.spring.boot.util.DubboUtils.DEFAULT_OVERRIDE_CONFIG_PROPERTY_VALUE;
+import static org.apache.dubbo.spring.boot.util.DubboUtils.DUBBO_APPLICATION_ID_PROPERTY;
+import static org.apache.dubbo.spring.boot.util.DubboUtils.DUBBO_APPLICATION_NAME_PROPERTY;
+import static org.apache.dubbo.spring.boot.util.DubboUtils.DUBBO_APPLICATION_QOS_ENABLE_PROPERTY;
+import static org.apache.dubbo.spring.boot.util.DubboUtils.DUBBO_CONFIG_MULTIPLE_PROPERTY;
 import static org.apache.dubbo.spring.boot.util.DubboUtils.DUBBO_CONFIG_PREFIX;
 import static org.apache.dubbo.spring.boot.util.DubboUtils.DUBBO_GITHUB_URL;
 import static org.apache.dubbo.spring.boot.util.DubboUtils.DUBBO_MAILING_LIST;
@@ -35,6 +39,7 @@ import static org.apache.dubbo.spring.boot.util.DubboUtils.DUBBO_SPRING_BOOT_GIT
 import static org.apache.dubbo.spring.boot.util.DubboUtils.DUBBO_SPRING_BOOT_ISSUES_URL;
 import static org.apache.dubbo.spring.boot.util.DubboUtils.MULTIPLE_CONFIG_PROPERTY_NAME;
 import static org.apache.dubbo.spring.boot.util.DubboUtils.OVERRIDE_CONFIG_FULL_PROPERTY_NAME;
+import static org.apache.dubbo.spring.boot.util.DubboUtils.SPRING_APPLICATION_NAME_PROPERTY;
 import static org.apache.dubbo.spring.boot.util.DubboUtils.filterDubboProperties;
 
 /**
@@ -60,17 +65,24 @@ public class DubboUtilsTest {
 
         Assert.assertEquals("dubbo.config.override", OVERRIDE_CONFIG_FULL_PROPERTY_NAME);
 
-        Assert.assertEquals("https://github.com/apache/incubator-dubbo-spring-boot-project", DUBBO_SPRING_BOOT_GITHUB_URL);
-        Assert.assertEquals("https://github.com/apache/incubator-dubbo-spring-boot-project.git", DUBBO_SPRING_BOOT_GIT_URL);
-        Assert.assertEquals("https://github.com/apache/incubator-dubbo-spring-boot-project/issues", DUBBO_SPRING_BOOT_ISSUES_URL);
+        Assert.assertEquals("https://github.com/apache/dubbo-spring-boot-project", DUBBO_SPRING_BOOT_GITHUB_URL);
+        Assert.assertEquals("https://github.com/apache/dubbo-spring-boot-project.git", DUBBO_SPRING_BOOT_GIT_URL);
+        Assert.assertEquals("https://github.com/apache/dubbo-spring-boot-project/issues", DUBBO_SPRING_BOOT_ISSUES_URL);
 
-        Assert.assertEquals("https://github.com/apache/incubator-dubbo", DUBBO_GITHUB_URL);
+        Assert.assertEquals("https://github.com/apache/dubbo", DUBBO_GITHUB_URL);
 
         Assert.assertEquals("dev@dubbo.apache.org", DUBBO_MAILING_LIST);
+
+        Assert.assertEquals("spring.application.name", SPRING_APPLICATION_NAME_PROPERTY);
+        Assert.assertEquals("dubbo.application.id", DUBBO_APPLICATION_ID_PROPERTY);
+        Assert.assertEquals("dubbo.application.name", DUBBO_APPLICATION_NAME_PROPERTY);
+        Assert.assertEquals("dubbo.application.qos-enable", DUBBO_APPLICATION_QOS_ENABLE_PROPERTY);
+        Assert.assertEquals("dubbo.config.multiple", DUBBO_CONFIG_MULTIPLE_PROPERTY);
 
         Assert.assertTrue(DEFAULT_MULTIPLE_CONFIG_PROPERTY_VALUE);
 
         Assert.assertTrue(DEFAULT_OVERRIDE_CONFIG_PROPERTY_VALUE);
+
 
     }
 
